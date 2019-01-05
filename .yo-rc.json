@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "gitCompany": "",
+    "baseName": "ModellingORM",
+    "packageName": "com.tomaszekem.modelling",
+    "packageFolder": "com/tomaszekem/modelling",
+    "serverPort": 8080,
+    "serviceDiscoveryType": false,
+    "authenticationType": "jwt",
+    "uaaBaseName": "../uaa",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "enableSwaggerCodegen": false,
+    "messageBroker": false,
+    "buildTool": "maven",
+    "useSass": false,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "enableTranslation": false,
+    "nativeLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "clientFramework": "angularX",
+    "jhiPrefix": "jhi",
+    "jhipsterVersion": "5.7.2",
+    "jwtSecretKey": "MGJjMjM2YzYxYjA1YTcwNjcxM2ViOTczOTg2MDFiYjRkNzdhMWQxZDM3MzY0ZTk2NWNjZTlkY2M3YWJmYjQ2YWUzYTdkMzEwM2UzZDlkNzM2MTZmYTQyMmE0ZTE0N2JiNmM0MmI5YzMzZmE1ZjMzZjk0NzA0ODY1YTg5Mjg1YzE=",
+    "otherModules": []
+  },
+  "git-provider": "GitHub",
+  "git-company": "tomaszekem",
+  "repository-name": "ModellingORM"
+}
