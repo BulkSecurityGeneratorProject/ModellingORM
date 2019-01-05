@@ -1,0 +1,41 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "members",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "userGroup"
+        },
+        {
+            "relationshipName": "posts",
+            "otherEntityName": "post",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "group"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "category",
+            "fieldType": "Category",
+            "fieldValues": "SPORT,SCIENCE,STYLE,OTHER"
+        }
+    ],
+    "changelogDate": "20190105150714",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "user_group",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

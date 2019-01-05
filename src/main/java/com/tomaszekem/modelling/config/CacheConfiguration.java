@@ -38,6 +38,13 @@ public class CacheConfiguration {
             cm.createCache(com.tomaszekem.modelling.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.tomaszekem.modelling.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.tomaszekem.modelling.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.Post.class.getName(), jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.Post.class.getName() + ".likedByUsers", jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.PostComment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.UserGroup.class.getName(), jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.UserGroup.class.getName() + ".members", jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.UserGroup.class.getName() + ".posts", jcacheConfiguration);
+            cm.createCache(com.tomaszekem.modelling.domain.File.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
