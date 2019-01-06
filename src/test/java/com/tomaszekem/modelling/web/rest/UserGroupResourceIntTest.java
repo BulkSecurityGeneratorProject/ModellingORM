@@ -178,7 +178,7 @@ public class UserGroupResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllUserGroupsWithEagerRelationshipsIsEnabled() throws Exception {
         UserGroupResource userGroupResource = new UserGroupResource(userGroupRepositoryMock);

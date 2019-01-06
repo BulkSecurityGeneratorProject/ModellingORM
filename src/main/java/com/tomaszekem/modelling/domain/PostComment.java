@@ -39,6 +39,13 @@ public class PostComment implements Serializable {
     @JsonIgnoreProperties("")
     private Post post;
 
+    public PostComment(@NotNull String content, @NotNull User author, @NotNull Post post) {
+        this.content = content;
+        this.author = author;
+        this.post = post;
+    }
+    public PostComment() {}
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

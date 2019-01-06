@@ -3,6 +3,7 @@ package com.tomaszekem.modelling;
 import com.tomaszekem.modelling.config.ApplicationProperties;
 import com.tomaszekem.modelling.config.DefaultProfileUtil;
 
+import com.tomaszekem.modelling.config.data.SampleDataGenerator;
 import io.github.jhipster.config.JHipsterConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
@@ -27,18 +29,14 @@ public class ModellingOrmApp {
     private static final Logger log = LoggerFactory.getLogger(ModellingOrmApp.class);
 
     private final Environment env;
+    private final SampleDataGenerator sampleDataGenerator;
 
-    public ModellingOrmApp(Environment env) {
+    public ModellingOrmApp(Environment env, SampleDataGenerator sampleDataGenerator) {
         this.env = env;
+        this.sampleDataGenerator = sampleDataGenerator;
     }
 
-    /**
-     * Initializes ModellingORM.
-     * <p>
-     * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
-     * <p>
-     * You can find more information on how profiles work with JHipster on <a href="https://www.jhipster.tech/profiles/">https://www.jhipster.tech/profiles/</a>.
-     */
+    @Transactional
     @PostConstruct
     public void initApplication() {
         Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
@@ -50,6 +48,8 @@ public class ModellingOrmApp {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
         }
+
+        sampleDataGenerator.insertData();
     }
 
     /**

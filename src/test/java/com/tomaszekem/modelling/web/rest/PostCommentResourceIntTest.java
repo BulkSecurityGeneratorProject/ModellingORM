@@ -174,7 +174,7 @@ public class PostCommentResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(postComment.getId().intValue())))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getPostComment() throws Exception {

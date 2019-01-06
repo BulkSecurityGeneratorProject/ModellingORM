@@ -1,6 +1,8 @@
 package com.tomaszekem.modelling.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.collect.Sets;
+import com.tomaszekem.modelling.domain.enumeration.Category;
 import com.tomaszekem.modelling.domain.enumeration.PostCategory;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,6 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -34,7 +37,7 @@ public class Post implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private PostCategory category;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
@@ -42,11 +45,21 @@ public class Post implements Serializable {
     private User author;
 
     @OneToMany(mappedBy = "post")
-    private Set<PostComment> comments;
+    private Set<PostComment> comments = Sets.newHashSet();
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private UserGroup group;
+
+    public Post(@NotNull String title, @NotNull String content, Category category) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+    }
+
+    public Post() {
+
+    }
 
     public UserGroup getGroup() {
         return group;
@@ -98,21 +111,13 @@ public class Post implements Serializable {
         this.content = content;
     }
 
-    public PostCategory getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public Post category(PostCategory category) {
+    public Post category(Category category) {
         this.category = category;
         return this;
-    }
-
-    public void setCategory(PostCategory category) {
-        this.category = category;
-    }
-
-    public User getAuthor() {
-        return author;
     }
 
     public Post author(User user) {
@@ -124,13 +129,15 @@ public class Post implements Serializable {
         this.author = user;
     }
 
-    public Set<User> getLikedByUsers() {
-        return likedByUsers;
-    }
-
-    public void addLikedByUsers(Set<User> users) {
+    public void addLikedByUsers(Collection<User> users) {
         this.likedByUsers.addAll(users);
     }
+
+    public void addComments(Collection<PostComment> comments) {
+        this.comments.addAll(comments);
+        comments.forEach(c -> c.setPost(this));
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

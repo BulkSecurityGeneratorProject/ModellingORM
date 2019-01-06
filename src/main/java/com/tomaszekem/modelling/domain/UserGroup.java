@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -43,6 +44,14 @@ public class UserGroup implements Serializable {
     @OneToMany(mappedBy = "group")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Post> posts = new HashSet<>();
+
+    public UserGroup(@NotNull String name, Category category) {
+        this.name = name;
+        this.category = category;
+    }
+
+    public UserGroup() {}
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -82,21 +91,9 @@ public class UserGroup implements Serializable {
         return members;
     }
 
-    public UserGroup members(Set<User> users) {
-        this.members = users;
-        return this;
-    }
-
-    public UserGroup addMembers(User user) {
-        this.members.add(user);
-        user.getGroups().add(this);
-        return this;
-    }
-
-    public UserGroup removeMembers(User user) {
-        this.members.remove(user);
-        user.getGroups().remove(this);
-        return this;
+    public void addMembers(Collection<User> members) {
+        this.members.addAll(members);
+        members.forEach(m -> m.getGroups().add(this));
     }
 
     public void setMembers(Set<User> users) {
@@ -107,25 +104,9 @@ public class UserGroup implements Serializable {
         return posts;
     }
 
-    public UserGroup posts(Set<Post> posts) {
-        this.posts = posts;
-        return this;
-    }
-
-    public UserGroup addPosts(Post post) {
-        this.posts.add(post);
-        post.setGroup(this);
-        return this;
-    }
-
-    public UserGroup removePosts(Post post) {
-        this.posts.remove(post);
-        post.setGroup(null);
-        return this;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
+    public void addPosts(Collection<Post> posts) {
+        this.posts.addAll(posts);
+        posts.forEach(p -> p.setGroup(this));
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

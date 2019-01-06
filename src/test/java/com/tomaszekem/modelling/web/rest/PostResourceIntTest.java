@@ -1,13 +1,12 @@
 package com.tomaszekem.modelling.web.rest;
 
 import com.tomaszekem.modelling.ModellingOrmApp;
-
 import com.tomaszekem.modelling.domain.Post;
-import com.tomaszekem.modelling.domain.UserGroup;
+import com.tomaszekem.modelling.domain.enumeration.Category;
+import com.tomaszekem.modelling.domain.enumeration.PostCategory;
 import com.tomaszekem.modelling.repository.PostRepository;
 import com.tomaszekem.modelling.repository.UserGroupRepository;
 import com.tomaszekem.modelling.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -30,15 +28,12 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static com.tomaszekem.modelling.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.tomaszekem.modelling.domain.enumeration.PostCategory;
 /**
  * Test class for the PostResource REST controller.
  *
@@ -54,8 +49,8 @@ public class PostResourceIntTest {
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
 
-    private static final PostCategory DEFAULT_CATEGORY = PostCategory.SPORT;
-    private static final PostCategory UPDATED_CATEGORY = PostCategory.SCIENCE;
+    private static final Category DEFAULT_CATEGORY = Category.SPORT;
+    private static final Category UPDATED_CATEGORY = Category.SCIENCE;
 
     @Autowired
     private PostRepository postRepository;
@@ -206,7 +201,7 @@ public class PostResourceIntTest {
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
             .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllPostsWithEagerRelationshipsIsEnabled() throws Exception {
         PostResource postResource = new PostResource(postRepositoryMock);
