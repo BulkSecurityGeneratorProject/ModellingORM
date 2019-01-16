@@ -135,7 +135,7 @@ public class Post implements Serializable {
 
     public void addComments(Collection<PostComment> comments) {
         this.comments.addAll(comments);
-        comments.forEach(c -> c.setPost(this));
+//        comments.forEach(c -> c.setPost(this));
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

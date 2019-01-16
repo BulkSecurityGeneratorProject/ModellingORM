@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -130,5 +129,11 @@ public class UserGroupResource {
 
         userGroupRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/user-groups/name/{name}")
+    public ResponseEntity<List<UserGroup>> findByName(@PathVariable String name, Pageable pageable) {
+        Page<UserGroup> page = userGroupRepository.findAllByNameLike(name, pageable);
+        return ResponseEntity.ok().body(page.getContent());
     }
 }

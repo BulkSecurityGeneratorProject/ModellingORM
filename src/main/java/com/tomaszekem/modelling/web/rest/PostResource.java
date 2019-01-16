@@ -85,13 +85,14 @@ public class PostResource {
     /**
      * GET  /posts : get all the posts.
      *
-     * @param pageable the pagination information
+     * @param pageable  the pagination information
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of posts in body
      */
     @GetMapping("/posts")
     @Timed
-    public ResponseEntity<List<Post>> getAllPosts(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Post>> getAllPosts(Pageable pageable,
+                                                  @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Posts");
         Page<Post> page;
         if (eagerload) {
@@ -130,5 +131,11 @@ public class PostResource {
 
         postRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/posts/likes/by-user-and-category")
+    @Timed
+    public ResponseEntity<Object> bla() {
+        return ResponseEntity.ok(postRepository.bla());
     }
 }

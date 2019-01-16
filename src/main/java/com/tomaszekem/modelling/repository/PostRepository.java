@@ -30,4 +30,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("select post from Post post left join fetch post.likedByUsers where post.id =:id")
     Optional<Post> findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query(value = "select u.login, count(pu.liked_by_users_id) from jhi_user u  \n" +
+        "join post p on p.author_id = u.id\n" +
+        "join post_liked_by_users pu on pu.posts_id = p.id\n" +
+        "where p.category like 'science'\n" +
+        "group by u.id", nativeQuery = true)
+    Object bla();
+
 }

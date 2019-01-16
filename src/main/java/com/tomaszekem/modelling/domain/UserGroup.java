@@ -93,7 +93,7 @@ public class UserGroup implements Serializable {
 
     public void addMembers(Collection<User> members) {
         this.members.addAll(members);
-        members.forEach(m -> m.getGroups().add(this));
+//        members.forEach(m -> m.getGroups().add(this));
     }
 
     public void setMembers(Set<User> users) {

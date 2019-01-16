@@ -27,4 +27,11 @@ public interface UserGroupRepository extends JpaRepository<UserGroup, Long> {
     @Query("select user_group from UserGroup user_group left join fetch user_group.members where user_group.id =:id")
     Optional<UserGroup> findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select user_group from UserGroup user_group where user_group.name like ?1%")
+    Page<UserGroup> findAllByNameLike(String name, Pageable pageable);
+
+    @Query("select user_group from UserGroup user_group where user_group.name like ?1%")
+    List<UserGroup> findAllByNameLike(String name);
+
+
 }
